@@ -1,16 +1,14 @@
 package com.example.ispcourseproject;
 
-import javafx.animation.KeyValue;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -18,7 +16,6 @@ import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.security.InvalidKeyException;
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Objects;
@@ -119,6 +116,7 @@ protected void onEncryptButtonClick(MouseEvent event) throws IOException {
 
         // Read file info and store in data[]
         fis.read(data);
+        fis.close();
 
         //create encrpyted data file and decrypted data file
         //these end up in the EncryptTest file, if you want them in a different directory change the path
@@ -131,6 +129,7 @@ protected void onEncryptButtonClick(MouseEvent event) throws IOException {
         FileOutputStream writeEncrypt = new FileOutputStream(outfile);
         //these end up in the EncryptTest file, if you want them in a different directory change the path
         writeEncrypt.write(encryptedData);
+        writeEncrypt.close();
         return encodedKey;
     }
 
@@ -166,6 +165,7 @@ protected void onEncryptButtonClick(MouseEvent event) throws IOException {
 
         // Read file info and store in data[]
         fis.read(data);
+        fis.close();
 
         //create encrpyted data file and decrypted data file
         //these end up in the EncryptTest file, if you want them in a different directory change the path
@@ -187,6 +187,7 @@ protected void onEncryptButtonClick(MouseEvent event) throws IOException {
         //writeEncrypt.write(encryptedData);
         encryptedData = decipher.doFinal(data);
         writeDecrypt.write(encryptedData);
+        writeDecrypt.close();
 
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Home.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
